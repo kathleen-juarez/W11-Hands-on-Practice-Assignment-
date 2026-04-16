@@ -6,14 +6,16 @@ website:
   navbar:
     background: "#6a81a5"
     left:
+      - href: https://lqpn2m-kathleen0juarez.shinyapps.io/channel-engagement-explorer/
+        text: Shiny App
       - href: index.qmd
         text: Home
-      - href: shiny-app.qmd
-        text: Shiny App Essay
+      #- href: shiny-app.qmd
+      #  text: Shiny App Essay
       - href: CEP_dashboard.qmd
         text: Quarto Dashboard
-      - href: Shiny-live.qmd
-        text: Shiny Live
+      #- href: Shiny-live.qmd
+      #  text: Shiny Live
         
         
         

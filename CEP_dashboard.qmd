@@ -10,6 +10,8 @@ format:
 ```{r}
 #| label: load-packages and data 
 #install.packages("tidyverse")
+#install.packages("shiny")
+library("shiny")
 library(tidyverse)
 library(readr)
 library(scales)
@@ -102,7 +104,7 @@ ggplot(df_plot, aes(x = channel, y = high_intent_rate, fill = channel == "Direct
     plot.title = element_text(face = "bold")
   )
 ```
-::: 
+:::
 
 ## sessions and high intent rate {width="65%"}
 
@@ -136,12 +138,4 @@ theme(
   axis.text.y  = element_text(size = 14)
 )
 ```
-::: 
-
-
-
-
-
-
-
-
+:::
