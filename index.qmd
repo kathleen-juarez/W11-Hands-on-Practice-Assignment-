@@ -5,6 +5,3 @@ format:
   html:
     css: styles/hero.css
 ---
-
-```         
-```
