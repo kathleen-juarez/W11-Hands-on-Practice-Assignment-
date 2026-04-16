@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "Juarez-Kathleen_W11.html",
+    "href": "Juarez-Kathleen_W11.html",
+    "title": "W11-Hands-on Practice Assignment",
+    "section": "",
+    "text": "Website:\nhttps://kathleen-juarez.github.io/W11-Hands-on-Practice-Assignment-/"
+  },
+  {
+    "objectID": "shiny-app.html",
+    "href": "shiny-app.html",
+    "title": "Shiny App",
+    "section": "",
+    "text": "#| '!! shinylive warning !!': |\n#|   shinylive does not work in self-contained HTML documents.\n#|   Please set `embed-resources: false` in your metadata.\n#| standalone: true\n#| viewerHeight: 650\n\nlibrary(shiny)\nlibrary(tidyverse)\n\n# Embedded data\ndf_clean &lt;- tibble(\n  channel = c(\"Organic Social\", \"Direct\", \"Organic Search\", \"Unassigned\", \"Paid Search\", \"Referral\"),\n  sessions = c(367, 197, 95, 33, 4, 2),\n  engaged_sessions = c(267, 83, 59, 19, 0, 0),\n  form_starts = c(24, 14, 3, 1, 0, 0)\n) %&gt;%\n  mutate(high_intent_rate = form_starts / sessions)\n\nui &lt;- fluidPage(\n  titlePanel(\"Channel Engagement Explorer\"),\n  sidebarLayout(\n    sidebarPanel(\n      selectInput(\n        inputId = \"metric\",\n        label   = \"Select a metric:\",\n        choices = c(\"sessions\", \"engaged_sessions\", \"form_starts\", \"high_intent_rate\")\n      ),\n      checkboxGroupInput(\n        inputId  = \"channels\",\n        label    = \"Select channels to include:\",\n        choices  = c(\"Organic Social\", \"Direct\", \"Organic Search\", \"Unassigned\", \"Paid Search\", \"Referral\"),\n        selected = c(\"Organic Social\", \"Direct\", \"Organic Search\", \"Unassigned\", \"Paid Search\", \"Referral\")\n      )\n    ),\n    mainPanel(\n      textOutput(\"title\"),\n      plotOutput(\"bar_chart\"),\n      plotOutput(\"scatter_plot\")\n    )\n  )\n)\n\nserver &lt;- function(input, output) {\n\n  output$title &lt;- renderText(\n    paste(\"Showing:\", input$metric)\n  )\n\n  output$bar_chart &lt;- renderPlot({\n    df_clean %&gt;%\n      filter(channel %in% input$channels) %&gt;%\n      ggplot(aes(x = reorder(channel, .data[[input$metric]]), y = .data[[input$metric]], fill = channel)) +\n      geom_col(show.legend = FALSE) +\n      coord_flip() +\n      labs(\n        title = paste(input$metric, \"by channel\"),\n        x     = \"Channel\",\n        y     = input$metric\n      ) +\n      theme_minimal()\n  })\n\n  output$scatter_plot &lt;- renderPlot({\n    df_clean %&gt;%\n      filter(channel %in% input$channels) %&gt;%\n      ggplot(aes(x = sessions, y = high_intent_rate, color = channel)) +\n      geom_point(size = 5) +\n      geom_text(aes(label = channel), vjust = -1, show.legend = FALSE) +\n      labs(\n        title = \"Sessions vs. High-Intent Rate\",\n        x     = \"Sessions\",\n        y     = \"High-Intent Rate\"\n      ) +\n      theme_minimal() +\n      theme(legend.position = \"none\")\n  })\n}\n\nshinyApp(ui, server)"
+  }
+]
