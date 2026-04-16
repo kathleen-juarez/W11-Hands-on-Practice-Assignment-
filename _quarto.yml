@@ -1,5 +1,6 @@
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "K.Juarez W11-Hands-on Practice"
@@ -8,11 +9,10 @@ website:
     left:
       - href: index.qmd
         text: Home
-      #- href: shiny-app.qmd
-       # text: Shiny App 
+      - href: shiny-app.qmd
+        text: Shiny App
       - href: CEP_dashboard.qmd
         text: Quarto Dashboard
-   
         
         
         
